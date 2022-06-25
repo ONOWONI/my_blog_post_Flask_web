@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div>
+        <form method="POST" action=' ' enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <fieldset>
+                <div>
+                    {{form.title.label}}
+                    {% if form.title.errors%}
+                        {{ form.title(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.title.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.title }}
+                    {% endif%}
+                </div>
+                <div>
+                    {{form.content.label}}
+                    {% if form.content.errors%}
+                        {{ form.content(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.content.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.content }}
+                    {% endif%}
+                </div>
+                <div>
+                    {{form.image.label}}
+                    {% if form.image.errors%}
+                        {{ form.image(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.image.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.image }}
+                    {% endif%}
+                </div>
+                <div>
+                    {{form.location.label}}
+                    {% if form.location.errors%}
+                        {{ form.location(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.location.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.location }}
+                    {% endif%}
+                </div>
+                <div>
+                    {{form.city.label}}
+                    {% if form.city.errors%}
+                        {{ form.city(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.city.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.city }}
+                    {% endif%}
+                </div>
+                <div>
+                    {{form.tags.label}}
+                    {% if form.tags.errors%}
+                        {{ form.tags(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.tags.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.tags }}
+                    {% endif%}
+                </div>
+            </fieldSet>
+            <div>
+                {{form.submit}}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

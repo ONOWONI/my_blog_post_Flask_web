@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="{{url_for('static', filename='main.css')}}">
+    {% if title %}
+        <title>{{title}}</title>
+    {% else %}
+        <title>Daycumentation</title>
+    {% endif %}
+</head>
+<body>
+    {%  with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages %}
+                <span>{{message}}</span>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% if current_user.is_authenticated %}
+        <nav>
+            <a href='{{url_for('index')}}'>Home</a>
+            <a href='{{url_for('create_post')}}'>New Post</a>
+            <a href='{{url_for('single_post')}}'>Post</a>
+            <a href='{{url_for('search')}}'>Search</a>
+            <a href='{{url_for('logout')}}'>Logout</a>
+        </nav>
+    {% else %}
+        <nav>
+            <a href='{{url_for('index')}}'>Home</a>
+            <a href='{{url_for('reg')}}'>Register</a>
+            <a href='{{url_for('login')}}'>Login</a>
+        </nav>
+    {% endif %}
+    {% block content %}{% endblock content %}
+</body>
+</html>
