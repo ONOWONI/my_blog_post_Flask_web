@@ -31,17 +31,19 @@
                     {% endif%}
                 </div>
                 <div>
-                    {{form.image.label}}
-                    {% if form.image.errors%}
-                        {{ form.image(class="form-group form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {%for error in form.image.errors%}
-                                <span>{{error}}</span>
-                            {%endfor%}
-                        </div>
-                    {%else%}
-                        {{ form.image }}
-                    {% endif%}
+                    {% for image in form.image %}
+                        {{image.label}}
+                        {% if image.errors%}
+                            {{ image(class="form-group form-control-lg is-invalid")}}
+                            <div class="invalid-feedback">
+                                {%for error in image.errors%}
+                                    <span>{{error}}</span>
+                                {%endfor%}
+                            </div>
+                        {%else%}
+                            {{ image }}
+                        {% endif%}
+                    {% endfor %}
                 </div>
                 <div>
                     {{form.location.label}}

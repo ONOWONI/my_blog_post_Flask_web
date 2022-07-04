@@ -43,7 +43,6 @@ class Places(db.Model):
     city = db.Column(db.Integer, db.ForeignKey('city.id'))
     posts = db.relationship('Post', backref='postlocation', lazy=True)
 
-
 class PostImage(db.Model):
     __tablename__ = 'postimage'
     id = db.Column(db.Integer, primary_key=True)

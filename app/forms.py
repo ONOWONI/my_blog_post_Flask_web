@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField
+from wtforms import TextAreaField, StringField, PasswordField, SubmitField, BooleanField, FieldList
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from app.models import City, User, Places
@@ -33,13 +33,12 @@ class LoginForm(FlaskForm):
 
 class CreatePostForm(FlaskForm):
     title = StringField('Title')
-    content = TextAreaField('Post', validators=[DataRequired()])
-    image = FileField("Add Images", validators=[FileAllowed(['jpg', 'png'])])
+    content = TextAreaField('Post', validators=[DataRequired() ])
+    image = FieldList(FileField("Add Images", validators=[FileAllowed(['jpg', 'png'])]), min_entries=5)
     location = StringField("Location")
     city = StringField("City")
     tags = StringField("Tags")
     submit = SubmitField('Upload')
-
 
 
 
