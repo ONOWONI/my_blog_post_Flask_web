@@ -46,12 +46,12 @@ class UpdateAccountForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
     last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    country = StringField('Country', validators=[DataRequired()])
-    street = StringField('House address', validators=[DataRequired()])
-    city = StringField('City', validators=[DataRequired()])
-    state = StringField('State', validators=[DataRequired()])
+    country = StringField('Country')
+    street = StringField('House address')
+    city = StringField('City')
+    state = StringField('State')
     profile_pic = FileField("Add a Profile Pic", validators=[FileAllowed(['jpg', 'png', 'gif'])])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Update')
 
 
     def validate_email(self, email):

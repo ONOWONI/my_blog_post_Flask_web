@@ -1,10 +1,11 @@
-import os
-import secrets
 from flask import render_template, url_for, redirect, request, flash
 from app import app, bcrypt, db
 from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import City, Places, PostImage, User, Post
+from app.models import City, Places, PostImage, User, Post, State, Country
+from app.utils import save_picture
+
+
 
 
 @app.route('/')
@@ -21,7 +22,7 @@ def reg():
 		db.session.add(user)
 		db.session.commit()
 		flash('Successful')
-		return redirect(url_for('index'))
+		return redirect(url_for('login'))
 	return render_template('reg.html', title='Register', form=form)
 
 
@@ -48,13 +49,56 @@ def login():
 def update_account():
 	form = UpdateAccountForm()
 	if form.validate_on_submit():
+		if form.profile_pic.data:
+			picture_file = save_picture(form.profile_pic.data)
+			current_user.pic = picture_file
 		current_user.first_name = form.first_name.data
 		current_user.last_name = form.last_name.data
 		current_user.email = form.email.data
-		# to add the logic for updating address
+		current_user.street = form.street.data
+		if form.city.data and form.state.data and form.country.data:
+			# city
+			city_data = form.city.data.lower()
+			city_query = City.query.filter(City.city_name.like(city_data)).first()
+			if city_query:
+				current_user.city = city_query.id
+			else:
+				city_data = form.city.data.lower()
+				city = City(city_name=city_data)
+				db.session.add(city)
+				city_query = City.query.filter(City.city_name.like(city_data)).first()
+				current_user.city = city_query.id
+			# state
+			state_data = form.state.data.lower()
+			state_query = State.query.filter(State.state_name.like(state_data)).first()
+			if state_query:
+				current_user.state = state_query.id
+			else:
+				state_data = form.state.data.lower()
+				state = State(state_name=state_data)
+				db.session.add(state)
+				state_query = State.query.filter(State.state_name.like(state_data)).first()
+				current_user.state = state_query.id
+			# country
+			country_data = form.country.data.lower()
+			country_query = Country.query.filter(Country.country_name.like(country_data)).first()
+			if country_query:
+				current_user.country = country_query.id
+			else:
+				country_data = form.country.data.lower()
+				country = Country(country_name=country_data)
+				db.session.add(country)
+				country_query = Country.query.filter(Country.country_name.like(country_data)).first()
+				current_user.country = country_query.id
 		db.session.commit()
 		flash('Successful')
 		return redirect(url_for('index'))
+	# to fill up the form
+	elif request.method == 'GET':
+		form.first_name.data = current_user.first_name
+		form.email.data = current_user.email
+		form.last_name.data = current_user.last_name
+		form.street.data = current_user.street
 	return render_template('update_account.html', title='Register', form=form)
 
 
@@ -65,16 +109,7 @@ def logout():
 
 
 
-
-def save_picture(form_picture):
-	random_hex = secrets.token_hex(8)
-	_, f_ext = os.path.splitext(form_picture.filename)
-	picture_fname = random_hex + f_ext
-	picture_path = os.path.join(app.root_path, 'static/pic', picture_fname)
-	form_picture.save(picture_path)
-	return picture_fname
-
-
+# remaining the tag feature to b done with this route
 @app.route('/createpost', methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -116,9 +151,12 @@ def create_post():
 			db.session.flush()
 		if form.image.data:
 			for i in form.image.data:
-				picture_file = save_picture(i)
-				image = PostImage(pic=picture_file, post_id=post.id)
-				db.session.add(image)
+				if i != None:
+					picture_file = save_picture(i)
+					image = PostImage(pic=picture_file, post_id=post.id)
+					db.session.add(image)
+				else:
+					break
 		db.session.commit()
 		flash('Posted')
 		return redirect(url_for('index'))

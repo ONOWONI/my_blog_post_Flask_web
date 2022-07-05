@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     city = db.Column(db.Integer,nullable=False, default=0)
     state = db.Column(db.Integer,nullable=False, default=0)
     country = db.Column(db.Integer,nullable=False, default=0)
-    profile_pic = db.Column(db.String(), nullable=False, default='default.png')
+    pic = db.Column(db.String(), nullable=False, default='default.png')
     date_created = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy=True)
 
@@ -61,12 +61,12 @@ class City(db.Model):
 class State(db.Model):
     __tablename__ = 'State'
     id = db.Column(db.Integer, primary_key=True)
-    state = db.Column(db.String(), nullable=False, default='default')
+    state_name = db.Column(db.String(), nullable=False, default='default')
     country = db.Column(db.Integer, nullable=False, default=0)
 
 
 class Country(db.Model):
     __tablename__ = 'country'
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(), nullable=False, default='default')
+    country_name = db.Column(db.String(), nullable=False, default='default')
 
