@@ -26,8 +26,8 @@
             <a href='{{url_for('update_account')}}'>Update Account</a>
             <form method="POST" action='{{url_for('search')}}'>
                 {{form.hidden_tag()}}
-            <input type="text" class="bg-white outline-none w-80 text-black h-12 text-center text-xl rounded-lg" placeholder="Search" arai-label="Search" name="searched">
-            <button class=" btn btn-success w-24 " type="submit">Search</button>
+                <input type="text" class="bg-white outline-none w-80 text-black h-12 text-center text-xl rounded-lg" placeholder="Search" arai-label="Search" name="searched">
+                <button class=" btn btn-success w-24 " type="submit">Search</button>
             </form>
             <a href='{{url_for('logout')}}'>Logout</a>
         </nav>

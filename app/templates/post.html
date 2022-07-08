@@ -3,7 +3,7 @@
         <div>
             <img class='profile-pic' src="{{url_for('static', filename='pic/' + post.author.pic)}}">
             {{post.author.first_name}}
-            {{post.title}}
+            <p class='title'>{{post.title}}</p>
             {{post.content}}
         </div>
         <div>

@@ -188,6 +188,9 @@ def layout():
 @app.route('/search', methods=['POST'])
 def search():
 	form = SearchForm()
+	posts = Post.query
 	if form.validate_on_submit():
 		searched = form.searched.data
-	return render_template('search.html', title='Search', form=form, searched=searched)
+		posts = posts.filter(Post.content.like(f"%{searched}%") | Post.title.like(f"%{searched}%"))
+		posts = posts.order_by(Post.title).all()
+	return render_template('search.html', title='Search', form=form, searched=searched, posts=posts)

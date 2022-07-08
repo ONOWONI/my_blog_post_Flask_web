@@ -1,4 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h4>You searched For {{ searched }}</h4>
+    <p>You searched For {{ searched }}</p>
+
+    {% for post in posts %}
+        {{post.title}}
+    {% endfor %}
 {% endblock content %}
