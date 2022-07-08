@@ -1,4 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h1>howdy</h1>
+    {% for i in post %}
+        <div>
+            <a href="{{url_for('single_user', id=i.author.id)}}">
+            <img class='profile-pic' src="{{url_for('static', filename='pic/' + i.author.pic)}}">
+            </a>
+            <a href="{{url_for('single_post', id=i.id)}}">
+            {{i.title}}
+            {{i.content}}
+            </a>
+        </div>
+    {% endfor %}
 {% endblock content %}

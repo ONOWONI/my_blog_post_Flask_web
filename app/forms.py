@@ -61,3 +61,6 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('Invalid Email')
 
 
+class SearchForm(FlaskForm):
+    searched = StringField('Searched', validators=[DataRequired()])
+    submit = SubmitField('Search')

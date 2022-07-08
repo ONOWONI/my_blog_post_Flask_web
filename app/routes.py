@@ -1,16 +1,17 @@
 from flask import render_template, url_for, redirect, request, flash
 from app import app, bcrypt, db
-from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm
+from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm, SearchForm
 from flask_login import current_user, login_required, login_user, logout_user
 from app.models import City, Places, PostImage, User, Post, State, Country
-from app.utils import save_picture
+from app.utils import save_picture, save_profile_picture
 
 
 
 
 @app.route('/')
 def index():
-    return render_template('home.html', title='Home')
+	post_query = Post.query.all()
+	return render_template('home.html', title='Home', post=post_query)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -50,7 +51,7 @@ def update_account():
 	form = UpdateAccountForm()
 	if form.validate_on_submit():
 		if form.profile_pic.data:
-			picture_file = save_picture(form.profile_pic.data)
+			picture_file = save_profile_picture(form.profile_pic.data)
 			current_user.pic = picture_file
 		current_user.first_name = form.first_name.data
 		current_user.last_name = form.last_name.data
@@ -109,7 +110,7 @@ def logout():
 
 
 
-# remaining the tag feature to b done with this route
+# remaining the tag feature to be done with this route
 @app.route('/createpost', methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -165,12 +166,28 @@ def create_post():
 
 
 
-@app.route('/singlepost', methods=['GET', 'POST'])
-def single_post():
-    return "<h1>Howdy</h1>"
+@app.route('/singlepost/<int:id>', methods=['GET', 'POST'])
+def single_post(id):
+	post = Post.query.get_or_404(id)
+	images = db.session.query(PostImage).filter(PostImage.post_id == post.id).all()
+	return render_template('post.html', title='Post', post=post, images=images)
 
 
+@app.route('/singleuser/<int:id>', methods=['GET', 'POST'])
+def single_user(id):
+	user = User.query.get_or_404(id)
+	posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).all()
+	return render_template('user_account.html', title='Account', user=user, post=posts)
 
-@app.route('/search', methods=['GET', 'POST'])
+
+@app.context_processor
+def layout():
+	form= SearchForm()
+	return dict(form=form)
+
+@app.route('/search', methods=['POST'])
 def search():
-    return "<h1>Howdy</h1>"
+	form = SearchForm()
+	if form.validate_on_submit():
+		searched = form.searched.data
+	return render_template('search.html', title='Search', form=form, searched=searched)

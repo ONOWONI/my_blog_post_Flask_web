@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>howdy</h1>
+        <div>
+            {{user.first_name}}
+            {{user.last_name}}
+        </div>
+        {% for i in post %}
+            <div>
+                {{i.title}}
+                {{i.content}}
+            </div>
+        {% endfor %}
+{% endblock content %}

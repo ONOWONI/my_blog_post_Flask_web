@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+        <div>
+            <img class='profile-pic' src="{{url_for('static', filename='pic/' + post.author.pic)}}">
+            {{post.author.first_name}}
+            {{post.title}}
+            {{post.content}}
+        </div>
+        <div>
+            {% for i in images %}
+                <img class='post-image-for-carosel' src="{{url_for('static', filename='pic/' + i.pic)}}">
+            {% endfor %}
+        </div>
+{% endblock content %}
