@@ -34,6 +34,9 @@ class Post(db.Model):
     place = db.Column(db.Integer, db.ForeignKey('places.id'))
     posts = db.relationship('PostImage', backref='picpost', lazy=True)
 
+    def __repr__(self):
+        return f"{self.title} - {self.content}"
+
 
 class Places(db.Model):
     __tablename__ = 'places'

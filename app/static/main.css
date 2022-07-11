@@ -1,13 +1,108 @@
-* {
-    background-color: wheat;
+body{
+    background-color:black;
+    margin: 0;
+    color: white;
 }
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(pic/spotted.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.logo{
+    cursor: pointer;
+}
+
+
+
+.navlinks{
+    list-style: none;
+}
+
+.navlinks li{
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.navlinks li a{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+
+
+.search-form button{
+    cursor: pointer;
+    background-color: rgb(29, 29, 29);
+    color: white;
+    border: solid rgb(29, 29, 29);
+}
+
+.search-form input{
+    margin-right: 4px;
+}
+/* 
 .post-image-for-carosel{
     width: 400px;
     height: 400px;
+} */
+
+
+.post-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 200px;
+    grid-template-areas:
+        "title title title"
+        "body body body"
+        "link link link";
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color:white;
+
 }
 
 .title{
+    grid-area: title;
     color: red;
 }
 
+.content{
+    grid-area: link;
+}
+
+.post-container img{
+    grid-area: body;
+}
+
+
+/* #84a78d
+    #b9c49b
+    #2f4858
+    #598881
+    #3d6870*/
+
+
+/* olive green
+    #51787c
+    #979677
+    #e4e4c7
+    #80652a
+    #2c4d50
+*/
+
+/* another olive green
+    #1c4015
+    #54915f
+    #9ad5d3
+    #d4ccc0
+    #adaac7 */
+
+/* #84a78d */
