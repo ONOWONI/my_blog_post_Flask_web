@@ -1,28 +1,32 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h1>Howdy</h1>
-    {% for i in post.items %}
-        <div class="post-container">
-            <a href="{{url_for('single_post', id=i.id)}}">
-                <p class='title'>{{i.title}}</p>
-                <p class='content'>{{i.content}}</p>
-            </a>
-            <a href="{{url_for('single_user', id=i.author.id)}}">
-                <img class='post-profile-pic' src="{{url_for('static', filename='pic/' + i.author.pic)}}">
-            </a>
-        </div>
-    {% endfor %}
-    {% for page_num in post.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-        {% if page_num %}
-            {% if post.page == page_num %}
-                <a  class='btn btn-info mb-4' href='{{ url_for('index', page=page_num ) }}'>{{page_num}}</a>
-            {% else %}
+    {%if post%}
+        {% for i in post.items %}
+            <div class="post-container">
+                <a href="{{url_for('single_post', id=i.id)}}">
+                    <p class='title'>{{i.title}}</p>
+                    <p class='content'>{{i.content}}</p>
+                </a>
+                <a href="{{url_for('single_user', id=i.author.id)}}">
+                    <img class='post-profile-pic' src="{{url_for('static', filename='pic/' + i.author.pic)}}">
+                </a>
+            </div>
+        {% endfor %}
+        {% for page_num in post.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+                {% if post.page == page_num %}
+                    <a  class='btn btn-info mb-4' href='{{ url_for('index', page=page_num ) }}'>{{page_num}}</a>
+                {% else %}
 
-            <a  class='btn btn-outline-info mb-4' href='{{ url_for('index', page=page_num ) }}'>{{page_num}}</a>
+                <a  class='btn btn-outline-info mb-4' href='{{ url_for('index', page=page_num ) }}'>{{page_num}}</a>
+                {% endif %}
+            {% else %}
+                ...
             {% endif %}
-        {% else %}
-            ...
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div>NO POSTS HERE</div>
+    {% endif %}
 
 {% endblock content %}
