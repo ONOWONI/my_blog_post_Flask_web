@@ -1,6 +1,6 @@
 import os
 import secrets
-from app.app import app
+from app import app
 from PIL import Image
 
 def save_picture(form_picture):
@@ -9,6 +9,11 @@ def save_picture(form_picture):
 	picture_fname = random_hex + f_ext
 	picture_path = os.path.join(app.root_path, 'static/pic', picture_fname)
 	form_picture.save(picture_path)
+
+	output_size = (400, 800)
+	i = Image.open(form_picture)
+	i.thumbnail(output_size)
+	i.save(picture_path)
 	return picture_fname
 
 

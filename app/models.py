@@ -1,4 +1,4 @@
-from app.app import login_manager, db
+from app import login_manager, db
 from flask_login import UserMixin
 from datetime import datetime
 
@@ -33,6 +33,10 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     place = db.Column(db.Integer, db.ForeignKey('places.id'))
     posts = db.relationship('PostImage', backref='picpost', lazy=True)
+
+    def __repr__(self):
+        return f"{self.title} - {self.content}"
+
 
 
 class Places(db.Model):
