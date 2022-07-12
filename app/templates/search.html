@@ -1,30 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
-    {% if posts %}
-        {% for post in posts.items %}
-            <div class="post-container">
-                <a href="{{url_for('single_post', id=post.id)}}">
-                    <p class="title">{{post.title}}</p>
-                    <p class='content'>{{post.content}}</p>
-                </a>
-                <a href="{{url_for('single_user', id=post.author.id)}}">
-                    <img class='post-profile-pic' src="{{url_for('static', filename='pic/' + post.author.pic)}}">
-                </a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <h1> Sorry not found</h1>
-    {% endif %}
-    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-        {% if page_num %}
-            {% if posts.page == page_num %}
-                <a  class='btn btn-info mb-4' href='{{ url_for('index', page=page_num ) }}'>{{page_num}}</a>
-            {% else %}
+    <p>You searched For {{ searched }}</p>
 
-            <a  class='btn btn-outline-info mb-4' href='{{ url_for('index', page=page_num ) }}'>{{page_num}}</a>
-            {% endif %}
-        {% else %}
-            ...
-        {% endif %}
+    {% for post in posts %}
+        {{post.title}}
     {% endfor %}
 {% endblock content %}

@@ -1,4 +1,4 @@
-from flask import make_response, render_template, url_for, redirect, request, flash
+from flask import render_template, url_for, redirect, request, flash
 from app import app, bcrypt, db
 from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm, SearchForm
 from flask_login import current_user, login_required, login_user, logout_user
@@ -10,8 +10,7 @@ from app.utils import save_picture, save_profile_picture
 
 @app.route('/')
 def index():
-	page = request.args.get('page', 1, type=int)
-	post_query = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
+	post_query = Post.query.all()
 	return render_template('home.html', title='Home', post=post_query)
 
 
@@ -90,7 +89,6 @@ def update_account():
 				country_data = form.country.data.lower()
 				country = Country(country_name=country_data)
 				db.session.add(country)
-				db.session.flush()
 				country_query = Country.query.filter(Country.country_name.like(country_data)).first()
 				current_user.country = country_query.id
 		db.session.commit()
@@ -102,7 +100,7 @@ def update_account():
 		form.email.data = current_user.email
 		form.last_name.data = current_user.last_name
 		form.street.data = current_user.street
-	return render_template('update_account.html', title='Update Account', form=form)
+	return render_template('update_account.html', title='Register', form=form)
 
 
 @app.route('/logout')
@@ -132,7 +130,6 @@ def create_post():
 					location_data = form.location.data.lower()
 					place = Places(name=location_data, city=city_query.id)
 					db.session.add(place)
-					db.session.flush()
 					place_query = Places.query.filter(Places.name.like(location_data)).first()
 					post = Post(title=form.title.data, content=form.content.data, place=place_query.id,user_id=current_user.id)
 					db.session.add(post)
@@ -141,12 +138,10 @@ def create_post():
 					city_data = form.city.data.lower()
 					city = City(city_name=city_data)
 					db.session.add(city)
-					db.session.flush()
 					city_query = City.query.filter(City.city_name.like(city_data)).first()
 					location_data = form.location.data.lower()
 					place = Places(name=location_data, city=city_query.id)
 					db.session.add(place)
-					db.session.flush()
 					place_query = Places.query.filter(Places.name.like(location_data)).first()
 					post = Post(title=form.title.data, content=form.content.data, place=place_query.id, user_id=current_user.id)
 					db.session.add(post)
@@ -192,12 +187,10 @@ def layout():
 
 @app.route('/search', methods=['POST'])
 def search():
-	page = request.args.get('page', 1, type=int)
 	form = SearchForm()
 	posts = Post.query
 	if form.validate_on_submit():
 		searched = form.searched.data
 		posts = posts.filter(Post.content.like(f"%{searched}%") | Post.title.like(f"%{searched}%"))
-		posts = posts.order_by(Post.title).paginate(page=page, per_page=3)
+		posts = posts.order_by(Post.title).all()
 	return render_template('search.html', title='Search', form=form, searched=searched, posts=posts)
-

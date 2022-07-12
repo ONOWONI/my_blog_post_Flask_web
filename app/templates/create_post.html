@@ -71,6 +71,19 @@
                         {{ form.city }}
                     {% endif%}
                 </div>
+                <div>
+                    {{form.tags.label}}
+                    {% if form.tags.errors%}
+                        {{ form.tags(class="form-group form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {%for error in form.tags.errors%}
+                                <span>{{error}}</span>
+                            {%endfor%}
+                        </div>
+                    {%else%}
+                        {{ form.tags }}
+                    {% endif%}
+                </div>
             </fieldSet>
             <div>
                 {{form.submit}}

@@ -37,6 +37,7 @@ class CreatePostForm(FlaskForm):
     image = FieldList(FileField("Add Images", validators=[FileAllowed(['jpg', 'png'])]), min_entries=5)
     location = StringField("Location")
     city = StringField("City")
+    tags = StringField("Tags")
     submit = SubmitField('Upload')
 
 
