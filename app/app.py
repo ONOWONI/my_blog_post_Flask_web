@@ -1,9 +1,31 @@
 from flask import render_template, url_for, redirect, request, flash
-from app import app, bcrypt, db
 from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm, SearchForm
 from flask_login import current_user, login_required, login_user, logout_user
 from app.models import City, Places, PostImage, User, Post, State, Country
 from app.utils import save_picture, save_profile_picture
+
+
+
+from flask import Flask
+import os
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+
+
+
+load_dotenv()
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] =  os.getenv('DATABASE')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+
+db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+bcrypt = Bcrypt(app)
+
+
+
 
 
 
@@ -194,3 +216,11 @@ def search():
 		posts = posts.filter(Post.content.like(f"%{searched}%") | Post.title.like(f"%{searched}%"))
 		posts = posts.order_by(Post.title).all()
 	return render_template('search.html', title='Search', form=form, searched=searched, posts=posts)
+
+
+
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

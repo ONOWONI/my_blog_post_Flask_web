@@ -1,6 +1,6 @@
 import os
 import secrets
-from app import app
+from app.app import app
 from PIL import Image
 
 def save_picture(form_picture):
