@@ -9,8 +9,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =  os.getenv('DATABASE_URL')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+import re
+
+uri = os.getenv("DATABASE_URL")
+# or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = uri
+
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
