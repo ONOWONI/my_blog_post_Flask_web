@@ -17,4 +17,4 @@ login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
 
 
-from app import routes
+from app import app
