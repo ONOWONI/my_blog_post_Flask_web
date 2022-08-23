@@ -48,7 +48,7 @@ header{
 .search-form input{
     margin-right: 4px;
 }
-/* 
+/*
 .post-image-for-carosel{
     width: 400px;
     height: 400px;
@@ -57,7 +57,6 @@ header{
 
 .post-container{
     display: flex;
-    /* border: solid white 1px; */
     border-radius: 10px;
     background-color: #fff;
     width: 50%;
@@ -134,7 +133,7 @@ header{
     margin-left: 10px;
 }
 
-/* 
+/*
 =============================================================================================================
 =============================================================================================================
 ------------------------------------------------Single Post -------------------------------------------------
@@ -234,3 +233,56 @@ header{
     #adaac7 */
 
 /* #84a78d */
+
+
+
+
+
+/*
+******************************************************************************************************
+******************************************************************************************************
+*********************************************Media Queries********************************************
+******************************************************************************************************
+******************************************************************************************************
+ */
+
+@media screen and (max-width:480px) {
+    .post-container{
+        width: 80vw;
+        margin: 10px auto;
+        padding: 0;
+    }
+    nav{
+        display: none;
+    }
+
+    .single-post-container{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .main-content-container{
+        width: 100%;
+    }
+
+    .single-title{
+        font-size: 2rem;
+    }
+    .content-padding{
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .single-content{
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    .sticky{
+        position: relative;
+        top: 0;
+    }
+    .side-pannel{
+        width: 368px;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+}
