@@ -6,9 +6,14 @@
             {{user.last_name}}
         </div>
         {% for i in post %}
-            <div>
-                <p class='title'>{{i.title}}</p>
-                {{i.content}}
-            </div>
+        <div class="post-container">
+            <a href="{{url_for('single_post', id=i.id)}}" class="title-content" >
+                    <p class='title'>{{i.title}}</p>
+                    <p class='content'>{{i.content}}</p>
+            </a>
+            <a href="{{url_for('single_user', id=i.author.id)}}" class="post-img">
+                <img class='post-profile-pic' src="{{url_for('static', filename='pic/' + i.author.pic)}}">
+            </a>
+        </div>
         {% endfor %}
 {% endblock content %}

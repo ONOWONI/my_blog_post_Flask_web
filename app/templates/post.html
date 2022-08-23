@@ -1,14 +1,34 @@
 {% extends 'layout.html' %}
 {% block content %}
-        <div>
-            <img class='profile-pic' src="{{url_for('static', filename='pic/' + post.author.pic)}}">
-            {{post.author.first_name}}
-            <p class='title'>{{post.title}}</p>
-            {{post.content}}
-        </div>
-        <div>
-            {% for i in images %}
-                <img class='post-image-for-carosel' src="{{url_for('static', filename='pic/' + i.pic)}}">
-            {% endfor %}
+        <div class="single-post-container">
+            <div class='side-pannel'>
+                <div class="sticky">
+                    <a href="{{url_for('single_user', id=post.author.id)}}" class="user-link">
+                        <img class='profile-pic' src="{{url_for('static', filename='pic/' + post.author.pic)}}" />
+                        <h1 class="name">{{post.author.first_name}} {{post.author.last_name}}</h1>
+                    </a>
+                    <h3>Leave your comments here</h3>
+                    <form class="comment-form">
+                        {{form.hidden_tag()}}
+                        <textarea type="text" name="comment" placeholder="Comment"></textarea>
+                        <button class="post-btn" type="submit">Post Comment</button>
+                    </form>
+                </div>
+            </div>
+            <div class='main-content-container'>
+                <div class='title-and-content'>
+                    <p class='single-title'>{{post.title}}</p>
+                    <div class="content-padding">
+                        <div
+                            class="single-content" > {{post.content}}
+                            <div class='image-container'>
+                                {% for i in images %}
+                                    <img class='post-image-for-carosel' src="{{url_for('static', filename='pic/' + i.pic)}}">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 {% endblock content %}

@@ -86,7 +86,7 @@ header{
 }
 
 .title{
-    color: red;
+    color:cornflowerblue;
     padding: 0 50px;
     font-family: micks;
     font-size: 2.5rem;
@@ -110,7 +110,106 @@ header{
     height: 100%;
     border-radius: 0 10px 10px 0;
 }
+.buttons{
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    height: 30px;
+}
 
+.btn-info{
+    background-color:black;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.btn-outline-info{
+    background-color: #fff;
+    padding: 5px;
+    text-decoration: none;
+    color:black;
+    margin-left: 10px;
+}
+
+/* 
+=============================================================================================================
+=============================================================================================================
+------------------------------------------------Single Post -------------------------------------------------
+=============================================================================================================
+=============================================================================================================
+ */
+
+.single-post-container{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.main-content-container{
+    width: 80%;
+}
+
+@font-face {
+    font-family: title;
+    src: url(./fonts/Prisma.otf);
+}
+.single-title{
+    font-size: 3rem;
+    margin-bottom: 40px;
+    font-family: title;
+    text-align: center;
+    color:cornflowerblue;
+}
+.content-padding{
+    padding: 0 50px;
+    margin-bottom: 50px;
+}
+
+.single-content {
+    color: black;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+.side-pannel{
+    width: 20%;
+    background-color: #fff;
+}
+
+.sticky{
+    position: sticky;
+    top: 30px;
+    margin-left: 20%;
+}
+
+.comment-form{
+    width: 80%;
+}
+
+.comment-form textarea{
+    width: 100%;
+    height: 200px;
+}
+
+.user-link{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.side-pannel h1, h3{
+    padding: 0 10px 0 0;
+    color: black;
+}
+
+.image-container{
+    height: 400px;
+}
+.image-container img{
+    height: 100%;
+}
 
 /* #84a78d
     #b9c49b
