@@ -56,30 +56,59 @@ header{
 
 
 .post-container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 200px;
-    grid-template-areas:
-        "title title title"
-        "body body body"
-        "link link link";
-    border: 1px solid black;
+    display: flex;
+    /* border: solid white 1px; */
     border-radius: 10px;
-    background-color:white;
+    background-color: #fff;
+    width: 50%;
+    height: 220px;
+    margin: 20px auto;
+    justify-content: space-between;
+    overflow: hidden;
+}
 
+.title-content{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    align-items: center;
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: chicks;
+    src: url(./fonts/ChickenLovers.ttf);
+}
+
+@font-face {
+    font-family: micks;
+    src: url(./fonts/GreatVibes-Regular.ttf);
 }
 
 .title{
-    grid-area: title;
     color: red;
+    padding: 0 50px;
+    font-family: micks;
+    font-size: 2.5rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-align: center;
+    text-decoration: none;
 }
 
+
+
 .content{
-    grid-area: link;
+    padding: 10px 20px;
+    margin-top: 0;
+    color: black;
+    font-size: 1.4rem;
+    font-family: chicks;
 }
 
 .post-container img{
-    grid-area: body;
+    height: 100%;
+    border-radius: 0 10px 10px 0;
 }
 
 
