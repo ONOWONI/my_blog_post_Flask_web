@@ -205,9 +205,12 @@ header{
 
 .image-container{
     height: 400px;
+    display: flex;
+    gap: 5px;
 }
 .image-container img{
     height: 100%;
+    width: 100%;
 }
 
 /* #84a78d
@@ -284,5 +287,13 @@ header{
         border-radius: 10px;
         padding: 20px;
         margin: 0 auto;
+    }
+    .image-container{
+        width: 90%;
+        border: red solid 1px;
+        display: flex;
+    }
+    .image-container img {
+        width: 100%;
     }
 }

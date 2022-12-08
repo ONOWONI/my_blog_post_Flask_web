@@ -64,3 +64,7 @@ class UpdateAccountForm(FlaskForm):
 class SearchForm(FlaskForm):
     searched = StringField('Searched', validators=[DataRequired()])
     submit = SubmitField('Search')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Post')

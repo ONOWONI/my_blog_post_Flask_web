@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     pic = db.Column(db.String(), nullable=False, default='default.png')
     date_created = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy=True)
+    comments = db.relationship('PostComment', backref='commenter', lazy=True)
 
 
 class Post(db.Model):
@@ -72,4 +73,13 @@ class Country(db.Model):
     __tablename__ = 'country'
     id = db.Column(db.Integer, primary_key=True)
     country_name = db.Column(db.String(), nullable=False, default='default')
+
+
+
+class PostComment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.UnicodeText())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 

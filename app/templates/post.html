@@ -8,10 +8,24 @@
                         <h1 class="name">{{post.author.first_name}} {{post.author.last_name}}</h1>
                     </a>
                     <h3>Leave your comments here</h3>
-                    <form class="comment-form">
+                    <form method="POST" action='' >
                         {{form.hidden_tag()}}
-                        <textarea type="text" name="comment" placeholder="Comment"></textarea>
-                        <button class="post-btn" type="submit">Post Comment</button>
+                            <div class="comment-form">
+                                {{form.comment.label}}
+                                {% if form.comment.errors%}
+                                    {{ form.comment(class="form-group form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {%for error in form.comment.errors%}
+                                            <span>{{error}}</span>
+                                        {%endfor%}
+                                    </div>
+                                {%else%}
+                                    {{ form.comment }}
+                                {% endif%}
+                            </div>
+                            <div class="post-btn" >
+                                {{form.submit}}
+                            </div>
                     </form>
                 </div>
             </div>

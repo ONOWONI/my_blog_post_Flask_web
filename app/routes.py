@@ -1,8 +1,8 @@
 from flask import make_response, render_template, url_for, redirect, request, flash
 from app import app, bcrypt, db
-from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm, SearchForm
+from app.forms import RegistrationForm, LoginForm, CreatePostForm, UpdateAccountForm, SearchForm, CommentForm
 from flask_login import current_user, login_required, login_user, logout_user
-from app.models import City, Places, PostImage, User, Post, State, Country
+from app.models import City, Places, PostImage, User, Post, State, Country, PostComment
 from app.utils import save_picture, save_profile_picture
 
 
@@ -175,7 +175,13 @@ def create_post():
 def single_post(id):
 	post = Post.query.get_or_404(id)
 	images = db.session.query(PostImage).filter(PostImage.post_id == post.id).all()
-	return render_template('post.html', title='Post', post=post, images=images)
+	form = CommentForm()
+	if form.validate_on_submit():
+		comment = PostComment(comment=form.comment.data, user_id=current_user.id)
+		db.session.add(comment)
+		db.session.commit()
+		flash('Comment added')
+	return render_template('post.html', title='Post', post=post, images=images, form=form)
 
 
 @app.route('/singleuser/<int:id>', methods=['GET', 'POST'])
