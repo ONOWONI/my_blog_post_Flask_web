@@ -12,6 +12,9 @@
                 </a>
             </div>
         {% endfor %}
+    {% else %}
+        <div>NO POSTS HERE</div>
+    {% endif %}
         <div class="buttons">
             {% for page_num in post.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_num %}
@@ -25,8 +28,5 @@
                 {% endif %}
             {% endfor %}
         </div>
-    {% else %}
-        <div>NO POSTS HERE</div>
-    {% endif %}
 
 {% endblock content %}

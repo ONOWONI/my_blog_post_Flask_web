@@ -81,5 +81,6 @@ class PostComment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.UnicodeText())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 

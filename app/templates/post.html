@@ -20,10 +20,10 @@
                                         {%endfor%}
                                     </div>
                                 {%else%}
-                                    {{ form.comment }}
+                                    {{ form.comment(id="comment-input") }}
                                 {% endif%}
                             </div>
-                            <div class="post-btn" >
+                            <div class="post-btn" id="comment-btn" >
                                 {{form.submit}}
                             </div>
                     </form>
@@ -33,8 +33,7 @@
                 <div class='title-and-content'>
                     <p class='single-title'>{{post.title}}</p>
                     <div class="content-padding">
-                        <div
-                            class="single-content" > {{post.content}}
+                        <div class="single-content" > {{post.content}}
                             <div class='image-container'>
                                 {% for i in images %}
                                     <img class='post-image-for-carosel' src="{{url_for('static', filename='pic/' + i.pic)}}">
@@ -43,6 +42,23 @@
                         </div>
                     </div>
                 </div>
+                {% if comments %}
+                    <p class='single-title'>Comments</p>
+                {% endif %}
+                <div class="content-padding">
+                    <div class="comment-list">
+                        {% for comment in comments %}
+                            <div class="single-content">
+                                <div id="name-date-flex">
+                                    <span id="commenter">~{{ comment.commenter.first_name}} {{ comment.commenter.last_name}}~</span>
+                                    <span id="comment-date">~{{comment.date_posted}}~</span>
+                                </div>
+                                <div id="comment-text">{{comment.comment}}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
+        <script src="{{url_for('static', filename='javascript/post.js')}}"></script>
 {% endblock content %}

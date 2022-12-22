@@ -177,11 +177,13 @@ def single_post(id):
 	images = db.session.query(PostImage).filter(PostImage.post_id == post.id).all()
 	form = CommentForm()
 	if form.validate_on_submit():
-		comment = PostComment(comment=form.comment.data, user_id=current_user.id)
+		comment = PostComment(comment=form.comment.data, user_id=current_user.id, post_id = post.id)
 		db.session.add(comment)
 		db.session.commit()
+		form.comment.data = ""
 		flash('Comment added')
-	return render_template('post.html', title='Post', post=post, images=images, form=form)
+	comments = PostComment.query.filter_by(post_id=post.id).order_by(PostComment.date_posted.desc()).all()
+	return render_template('post.html', title='Post', post=post, images=images, form=form, comments=comments)
 
 
 @app.route('/singleuser/<int:id>', methods=['GET', 'POST'])
