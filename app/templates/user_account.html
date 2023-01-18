@@ -1,10 +1,16 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>howdy</h1>
-        <div>
-            {{user.first_name}}
-            {{user.last_name}}
+        <div class="user-profile-page">
+            <div>
+                <img class='post-profile-pic' src="{{url_for('static', filename='pic/' + user.pic)}}">
+            </div>
+            <div>
+                <div>FirstName : {{user.first_name}}</div>
+                <div>LastName : {{user.last_name}}</div>
+                <div>Email : {{user.email}}</div>
+            </div>
         </div>
+        <p class="user-post-text"> Posts</p>
         {% for i in post %}
         <div class="post-container">
             <a href="{{url_for('single_post', id=i.id)}}" class="title-content" >

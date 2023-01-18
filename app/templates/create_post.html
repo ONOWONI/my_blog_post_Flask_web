@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div>
-        <form method="POST" action=' ' enctype="multipart/form-data">
+    <div class="new-post">
+        <form method="POST" action=' ' enctype="multipart/form-data" class="post-form">
             {{form.hidden_tag()}}
             <fieldset>
-                <div>
+                <div class="form-div">
                     {{form.title.label}}
                     {% if form.title.errors%}
                         {{ form.title(class="form-group form-control-lg is-invalid")}}
@@ -17,7 +17,7 @@
                         {{ form.title }}
                     {% endif%}
                 </div>
-                <div>
+                <div class="form-div">
                     {{form.content.label}}
                     {% if form.content.errors%}
                         {{ form.content(class="form-group form-control-lg is-invalid")}}
@@ -30,7 +30,7 @@
                         {{ form.content }}
                     {% endif%}
                 </div>
-                <div>
+                <div class="form-div">
                     {% for image in form.image %}
                         {{image.label}}
                         {% if image.errors%}
@@ -45,7 +45,7 @@
                         {% endif%}
                     {% endfor %}
                 </div>
-                <div>
+                <div class="form-div">
                     {{form.location.label}}
                     {% if form.location.errors%}
                         {{ form.location(class="form-group form-control-lg is-invalid")}}
@@ -58,7 +58,7 @@
                         {{ form.location }}
                     {% endif%}
                 </div>
-                <div>
+                <div class="form-div">
                     {{form.city.label}}
                     {% if form.city.errors%}
                         {{ form.city(class="form-group form-control-lg is-invalid")}}
@@ -72,7 +72,7 @@
                     {% endif%}
                 </div>
             </fieldSet>
-            <div>
+            <div class="submit-div">
                 {{form.submit}}
             </div>
         </form>

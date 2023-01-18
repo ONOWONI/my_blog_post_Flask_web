@@ -15,7 +15,8 @@
     {% if current_user.is_authenticated %}
     <header>
         <a href="{{url_for('index')}}"><img src="{{url_for('static', filename='pic/djurnal.png')}}" class='logo'></a>
-        <nav>
+        <button id="mobile-toggle-nav-btn">=</button>
+        <nav class="navbar" id="navbar">
             <ul class='navlinks'>
                 <li><a href='{{url_for('index')}}'>Home</a></li>
                 <li><a href='{{url_for('create_post')}}'>New Post</a></li>
@@ -32,8 +33,9 @@
     </header>
     {% else %}
     <header>
-        <img src="{{url_for('static', filename='pic/djurnal.png')}}" class='logo'>
-        <nav>
+        <a href="{{url_for('index')}}"><img src="{{url_for('static', filename='pic/djurnal.png')}}" class='logo'></a>
+        <button id="mobile-toggle-nav-btn">=</button>
+        <nav class="navbar" id="navbar">
             <ul class='navlinks'>
                 <li><a href='{{url_for('index')}}'>Home</a></li>
                 <li><a href='{{url_for('reg')}}'>Register</a></li>
@@ -50,5 +52,6 @@
         {% endif %}
     {% endwith %}
     {% block content %}{% endblock content %}
+    <script src="{{url_for('static', filename='javascript/layout.js')}}"></script>
 </body>
 </html>

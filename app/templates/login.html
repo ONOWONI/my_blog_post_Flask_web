@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
     <div>
-        <form method="POST" action=' '>
+        <form method="POST" action=' ' class="post-form2 post-form">
             {{form.hidden_tag()}}
             <fieldset>
-                <div>
+                <div class="form-div">
                     {{form.email.label}}
                     {% if form.email.errors%}
                         {{ form.email(class="form-group form-control-lg is-invalid")}}
@@ -17,7 +17,7 @@
                         {{ form.email }}
                     {% endif%}
                 </div>
-                <div>
+                <div class="form-div">
                     {{form.password.label}}
                     {% if form.password.errors%}
                         {{ form.password(class="form-group form-control-lg is-invalid")}}
@@ -35,7 +35,7 @@
                     {{form.remember_me}}
                 </div>
             </fieldSet>
-            <div>
+            <div class="submit-div">
                 {{form.submit}}
             </div>
         </form>
