@@ -438,4 +438,21 @@ header{
     .post-form2{
         width: 80%;
     }
+    .user-profile-page{
+        width:80vw;
+        margin:10px auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-profile-pic{
+        width: 100%;
+
+    }
+    input {
+        background-color: #fff;
+    }
+    textarea {
+        background-color: #fff;
+    }
 }
